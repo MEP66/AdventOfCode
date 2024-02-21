@@ -14,7 +14,7 @@ class TreeNode:
         self.value = [] # data
         self.size = 0
         self.parent = parent
-        self.children = [] # references to other nodes
+        self.children = {} # references to other nodes
 
     def add_value(self, fileinfo: FileValue):
         # adds a value to a node.
@@ -30,15 +30,15 @@ class TreeNode:
     def add_child(self, name: str):
         # creates parent-child relationship
         c_node = TreeNode(name, parent = self)
-        self.children.append(c_node)
+        self.children[name] = c_node
 
     def traverse_down(self, cname: str):
         # traverses down to a child node
-        for childnode in self.children:
-            if childnode.name == cname:
-                return childnode
-        print(f'Childnode {cname} does not exist.')
-        sys.exit()
+        try:
+            return self.children[cname]
+        except KeyError:
+            print(f'Childnode {cname} does not exist.')
+            sys.exit()
     
     def traverse_up(self):
         if self.parent == None:
@@ -52,8 +52,8 @@ class TreeNode:
         all_nodes = [self]
         while len(nodes_to_visit) > 0:
             current_node = nodes_to_visit.pop()
-            nodes_to_visit += current_node.children
-            all_nodes += current_node.children
+            nodes_to_visit += current_node.children.values()
+            all_nodes += current_node.children.values()
         return all_nodes
 
 def main():
