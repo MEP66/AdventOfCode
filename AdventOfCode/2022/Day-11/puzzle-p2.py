@@ -14,13 +14,13 @@ class Monkey():
     def process_item(self, old):
         self.inspections += 1
         worry = eval(self.operation)
-        worry = worry // 3
+#        worry = worry // 3
         return (worry, self.throw[not(bool(worry % self.test))])
     
 
 def main():
     filename = fr'./AdventOfCode/2022/Day-{DAY}/input-example.txt'
-    filename = fr'./AdventOfCode/2022/Day-{DAY}/input.txt'
+    #filename = fr'./AdventOfCode/2022/Day-{DAY}/input.txt'
     
     with open(filename, 'r', encoding='utf-8') as f:
         input_data = f.read().splitlines()
@@ -48,12 +48,17 @@ def main():
             iffalse = int(re.search(r'\d+', line)[0])
             monkeys[num] = Monkey(num, startingitems, operation, divisibleby, iftrue, iffalse)
 
-    for _ in range(20):
+    for index in range(10000):
         for monkey in monkeys.values():
             while monkey.items:
                 item = monkey.items.pop(0)
                 action = monkey.process_item(item)
                 monkeys[action[1]].items.append(action[0])
+        if index == 999:
+            results = []
+            for monkey in monkeys.values():
+                results.append(monkey.inspections)
+            print(f'{index}   {results}')
 
     results = []
     for monkey in monkeys.values():
@@ -69,4 +74,4 @@ if __name__ == '__main__':
     main()
 
 
-# Answer = 62491
+# Answer = 
