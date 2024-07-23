@@ -1,0 +1,9 @@
+Research:
+
+https://openbookproject.net/courses/python4fun/logic.html
+
+https://stackoverflow.com/questions/12101958/how-to-keep-track-of-class-instances
+
+https://medium.com/@morevinyl/cool-python-track-all-instances-of-a-class-easily-even-2610368d7896
+
+https://www.w3schools.com/python/python_inheritance.asp

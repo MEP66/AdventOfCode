@@ -54,7 +54,7 @@ def main():
     
     allSB = set()
     for line in input_data:
-        points = re.findall('-?\d+', line)
+        points = re.findall(r'-?\d+', line)
         ipoints = list(map(int, points))
         allSB.add(SB(s=XY(x=ipoints[0], y=ipoints[1]), b=XY(x=ipoints[2], y=ipoints[3])))
     

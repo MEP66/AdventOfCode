@@ -1,0 +1,12 @@
+Research
+
+https://www.udacity.com/blog/2021/10/implementing-dijkstras-algorithm-in-python.html
+
+https://en.m.wikipedia.org/wiki/Hamiltonian_path
+
+https://stackoverflow.com/questions/47982604/hamiltonian-path-using-python
+
+https://www.geeksforgeeks.org/hamiltonian-path-cycle-in-python/
+
+https://developers.google.com/optimization/routing/tsp
+
