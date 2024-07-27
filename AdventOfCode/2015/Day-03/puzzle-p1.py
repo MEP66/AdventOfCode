@@ -16,13 +16,10 @@ def main():
         match direction:
             case '^':
                 y += 1
-
             case '>':
                 x += 1
-
             case 'v':
                 y -= 1
-
             case '<':
                 x -= 1
 

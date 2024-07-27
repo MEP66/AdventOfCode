@@ -1,6 +1,5 @@
 import re
 import itertools
-import math
 
 DAY = '09'
 
@@ -22,20 +21,20 @@ def main():
     start_node = all_nodes.pop()
 
     all_perms = itertools.permutations(nodes)
-    min_found = math.inf
+    max_found = 0
 
     for entry in all_perms:
         all_segments = [(entry[i], entry[i+1]) for i in range(len(entry) - 1)]
         all_segments.insert(0, (start_node, all_nodes[0]))
 
         all_distances = [dist_lookup[s] for s in all_segments]
-        this_distance = sum(all_distances) - max(all_distances)
+        this_distance = sum(all_distances) - min(all_distances)
         
-        min_found = min(min_found, this_distance)
+        max_found = max(max_found, this_distance)
 
-    print(min_found)
+    print(max_found)
 
 if __name__ == '__main__':
     main()
 
-#Answer = 141
+#Answer = 736
