@@ -18,9 +18,15 @@ def main():
         failed_check = False
         for i in range(1, 7, 2):
             if params[i] in ticker_tape:
-                if int(params[i + 1]) != ticker_tape[params[i]]:
-                    print(params[i+1], ticker_tape[params[i]])
-                    failed_check = True
+                if params[i] in ['cats', 'trees']:
+                    if int(params[i + 1]) <= ticker_tape[params[i]]:
+                        failed_check = True
+                elif params[i] in ['pomeranians', 'goldfish']:
+                    if int(params[i + 1]) >= ticker_tape[params[i]]:
+                        failed_check = True
+                else:
+                    if int(params[i + 1]) != ticker_tape[params[i]]:
+                        failed_check = True
         if not failed_check:
             sues_pass.append(params[0])
 
@@ -29,4 +35,4 @@ def main():
 if __name__ == '__main__':
     main()
 
-#Answer = 40
+#Answer = 241
