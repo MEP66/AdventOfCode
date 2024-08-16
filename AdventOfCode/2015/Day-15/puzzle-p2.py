@@ -49,13 +49,19 @@ def main():
                     + candy * ingredients['Candy'].txt
                     + chocolate * ingredients['Chocolate'].txt))
 
+        calories = max(0, (sugar * ingredients['Sugar'].cal
+                    + sprinkles * ingredients['Sprinkles'].cal
+                    + candy * ingredients['Candy'].cal
+                    + chocolate * ingredients['Chocolate'].cal))
+        
         score = capacity * durability * flavor * texture
 
-        maxscore = max(score, maxscore)
+        if calories == 500:
+            maxscore = max(score, maxscore)
 
     print(maxscore)
 
 if __name__ == '__main__':
     main()
 
-#Answer = 222870
+#Answer = 117936

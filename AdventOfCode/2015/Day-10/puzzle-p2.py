@@ -1,34 +1,29 @@
-
+from itertools import groupby
 
 DAY = '10'
 
+INPUT = '3113322113'
+
+def look_and_say(input):
+    # Got this solution from Reddit
+    #print(input)
+    #for k, v in groupby(input):
+    #    print(k, list(v))
+    return ''.join(str(len(list(v))) + k for k, v in groupby(input))
+
 def main():
-    INPUT = '3113322113'
-    
-    result = list(INPUT)
-    for x in range(50):
-        char = None
-        count = 0
-        new_result = list()
-        while result:
-            cur_char = result.pop(0)
-            if cur_char == char:
-                count += 1
-            else:
-                if char is not None:
-                    new_result.append(str(count))
-                    new_result.append(char)
-                char = cur_char
-                count = 1
-        new_result.append(str(count))
-        new_result.append(char)
-        result = new_result
-        print(x, len(result))
-        
-    print(len(result))  
+    p1 = INPUT
+    for _ in range(40):
+        p1 = look_and_say(p1)
+    print(len(p1))
+
+    p2 = INPUT
+    for _ in range(50):
+        p2 = look_and_say(p2)
+    print(len(p2))
 
 
 if __name__ == '__main__':
     main()
 
-#Answer = ???
+#Answer = 4666278

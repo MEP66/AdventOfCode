@@ -4,7 +4,7 @@ DAY = '18'
 
 def main():
     #filename = fr'./AdventOfCode/2015/Day-{DAY}/input-example.txt'
-    #steps = 4
+    #steps = 5
     filename = fr'./AdventOfCode/2015/Day-{DAY}/input.txt'
     steps = 100
 
@@ -16,6 +16,8 @@ def main():
     maxcol = len(map0[0])
     map1 = np.array([[0 for _ in range(maxcol)] for _ in range(maxrow)])
     readmap0 = True
+
+    map0[0, 0] = map0[0, maxcol-1] = map0[maxrow-1, 0] = map0[maxrow-1, maxcol-1] = 1
 
     for _ in range(steps):
         if readmap0:
@@ -41,6 +43,7 @@ def main():
                         newlightstate = 0
                 mapoutput[ri, ci] = newlightstate
 
+        mapoutput[0, 0] = mapoutput[0, maxcol-1] = mapoutput[maxrow-1, 0] = mapoutput[maxrow-1, maxcol-1] = 1
         readmap0 = not(readmap0)
         pass
 
@@ -49,4 +52,4 @@ def main():
 if __name__ == '__main__':
     main()
 
-#Answer = 768
+#Answer = 781
