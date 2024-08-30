@@ -1,6 +1,14 @@
 import re
+from dataclasses import dataclass
 
 DAY = '19'
+
+@dataclass
+class Sub:
+    subst: str
+    repl: str
+    size: int
+
 
 def replace(string, srch, rplc, n):
     Sstring = string.split(srch)
@@ -19,30 +27,36 @@ def main():
     with open(filename, 'r', encoding='utf-8') as f:
         input_data = f.read().splitlines()
 
-    substitutions = list()
+    subs = list()
     getstartmolecule = False
     for line in input_data:
         if not getstartmolecule:
             if line == '':
                 getstartmolecule = True
             else:
-                origstr, substr = line.split(' => ')
-                substitutions.append((origstr, substr))
+                substr, origstr = line.split(' => ')
+                subs.append(Sub(subst = origstr, repl = substr, size = len(origstr)))
         else:
             startmolecule = line
     
-    resultmolecules = set()
-    for entry in substitutions:
-        origstr, substr = entry
+    subs.sort(key=lambda x: x.size, reverse=True)
 
-        nummatches = len(re.findall(rf'{origstr}', startmolecule))
-
-        for n in range(1, nummatches + 1):
-            resultmolecules.add(replace(startmolecule, origstr, substr, n))
+    molecule = startmolecule
+    numsubs = 0
+    while molecule != 'e':
+        for s in subs:
+            nummatches = len(re.findall(rf'{s.subst}', molecule))
+            
+            if nummatches > 0:
+                for n in range(1, nummatches + 1):
+                    molecule = replace(molecule, s.subst, s.repl, 1)
+                    numsubs += 1
+                break
     
-    print(len(resultmolecules))
+    print(f'Total number of substitutions = {numsubs}')
+    
 
 if __name__ == '__main__':
     main()
 
-#Answer = 518
+#Answer = 200

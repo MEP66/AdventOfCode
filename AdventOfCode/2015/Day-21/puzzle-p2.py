@@ -40,7 +40,7 @@ def main():
                 'Defense +2': Stat(cost=40, damage=0, armor=2),
                 'Defense +3': Stat(cost=80, damage=0, armor=3)}
 
-    mincost = inf
+    maxcost = 0
     for wep in Weapons.keys():
         for arm in Armor.keys():
             for rngpc in range(len(Rings) + 1):
@@ -70,13 +70,13 @@ def main():
                             mhit = mhit - (max(1, bdamage - marmor))
                         myturn = not(myturn)
                     
-                    if mhit > 0:
-                        mincost = min(mincost, mcost)
+                    if mhit < 0:
+                        maxcost = max(maxcost, mcost)
 
-    print(f'The min cost is = {mincost}')
+    print(f'The min cost is = {maxcost}')
 
 
 if __name__ == '__main__':
     main()
 
-#Answer = 111
+#Answer = 188

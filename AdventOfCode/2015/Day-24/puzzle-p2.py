@@ -11,7 +11,7 @@ def main():
     with open(filename, 'r', encoding='utf-8') as f:
         input_data = set(map(int, f.read().splitlines()))
 
-    targetsum = int(sum(input_data) / 3)
+    targetsum = int(sum(input_data) / 4)
 
     minsetlen = 0
     temp = targetsum
@@ -34,7 +34,7 @@ def main():
 
     for combo in minsumcombos:
         secondcombined = input_data - combo
-        if sum(secondcombined) == 2 * targetsum:
+        if sum(secondcombined) == 3 * targetsum:
 
             size = len(combo)
             qe = 1
@@ -49,4 +49,4 @@ def main():
 if __name__ == '__main__':
     main()
 
-#Answer = 10439961859
+#Answer = 72050269
