@@ -1,6 +1,6 @@
 
 
-DAY = 'x'
+DAY = '04'
 
 def main():
     filename = fr'./AdventOfCode/2018/Day-{DAY}/input-example.txt'

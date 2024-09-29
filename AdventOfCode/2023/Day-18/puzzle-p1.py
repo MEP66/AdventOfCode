@@ -1,6 +1,5 @@
 from collections import Counter
 from collections import namedtuple
-from dataclasses import dataclass
 
 
 def main():
