@@ -13,6 +13,10 @@ class Sleep_sch():
     start: datetime
     duration: int
 
+@dataclass
+class Sleep_info():
+    sleepy_min: int
+    count: int
 
 def main():
     filename = fr'./AdventOfCode/2018/Day-{DAY}/input-example.txt'
@@ -39,19 +43,21 @@ def main():
                 slp_time = int(((event_date - start_date).seconds)/SECS_PER_MIN)
                 all_guards[guard_num]['sleep_sched'].append(Sleep_sch(start = start_date, duration = int(slp_time)))
                 all_guards[guard_num]['sleep_time'] += slp_time
-    
-    max_sleeper = max(all_guards, key=lambda key: all_guards[key]['sleep_time'])
 
-    sleep_counter = Counter()
-    for sched in all_guards[max_sleeper]['sleep_sched']:
-        sleep_counter.update([m for m in range(sched.start.minute, sched.start.minute + sched.duration)])
-
-    sleepyest_min = max(sleep_counter, key=lambda key: sleep_counter[key])
+    all_results = dict()
+    for guard, info in all_guards.items():
+        if info['sleep_sched']:
+            sleep_counter = Counter()
+            for sched in info['sleep_sched']:
+                sleep_counter.update([m for m in range(sched.start.minute, sched.start.minute + sched.duration)])
+            sleepyest_min = max(sleep_counter, key=lambda key: sleep_counter[key])
+            all_results[guard] = (Sleep_info(sleepy_min = sleepyest_min, count = sleep_counter[sleepyest_min]))
     
-    print(f'Result: {max_sleeper * sleepyest_min}')
+    result = max(all_results, key=lambda key: all_results[key].count)
+    print(f'Result: {result * all_results[result].sleepy_min}')
 
 
 if __name__ == '__main__':
     main()
 
-#Answer: 20859
+#Answer: 76576
