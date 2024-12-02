@@ -3,15 +3,26 @@
 DAY = '11'
 
 
-def occupied_neighbors(coord, smap):
-    x, y = coord
-    tl = [max(0, x-1), max(0, y-1)]
-    br = [min(len(smap[0]), x+2), min(len(smap), y+2)]
-    tosum = [smap[y][x] for y in range(tl[1], br[1])
-                        for x in range(tl[0], br[0])
-                        if smap[y][x] != '.']
+look = {'n': (0, -1), 'ne': (1, -1), 'e': (1, 0),
+        'se': (1, 1), 's': (0, 1), 'sw': (-1, 1),
+        'w': (-1, 0), 'nw': (-1, -1)}
 
-    return (sum(tosum)-smap[y][x])
+
+def occupied_neighbors(coord, smap):
+    tosum = list()
+    for dir in look:
+        exam_x, exam_y = coord
+        while True:
+            exam_x += look[dir][0]
+            exam_y += look[dir][1]
+            if ((0 <= exam_x < len(smap[0])) and (0 <= exam_y < len(smap))):
+                seat = smap[exam_y][exam_x]
+                if seat != '.':
+                    tosum.append(seat)
+                    break
+            else:
+                break
+    return sum(tosum)
 
 
 def main():
@@ -39,7 +50,7 @@ def main():
             for x, seat in enumerate(row):
                 match seat:
                     case 1:
-                        if occupied_neighbors((x, y), seat_map) >= 4:
+                        if occupied_neighbors((x, y), seat_map) >= 5:
                             arrival_map[y][x] = 0
                             change = True
                         else:
@@ -67,4 +78,4 @@ def main():
 if __name__ == '__main__':
     main()
 
-#Answer = 2164
+#Answer = 1974

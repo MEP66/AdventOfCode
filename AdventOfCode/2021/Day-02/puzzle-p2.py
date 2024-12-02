@@ -7,16 +7,14 @@ def main():
     filename = fr'./AdventOfCode/2021/Day-{DAY}/input.txt'
     
     with open(filename, 'r', encoding='utf-8') as f:
-        input_data = f.read().splitlines()
+        input_data = [[x for x in line.split()] for line in f.read().splitlines()]
 
     horizontal = 0
     depth = 0
     aim = 0
 
-    for line in input_data:
-        x = line.split()
-        cmd = x[0]
-        dist = int(x[1])
+    for cmd, d in input_data:
+        dist = int(d)
         match cmd:
             case 'up':
                 aim -= dist

@@ -30,8 +30,7 @@ def main():
             crates[index].append(element[0])
     
     for line in input_data[movestart:]:
-        datapts = re.findall(r'\d+', line)
-        count, source, dest = map(int, datapts)
+        count, source, dest = [int(x) for x in re.findall(r'\d+', line)]
 
         for _ in range(count):
             crates[dest].extend(list(crates[source][-1:]))
