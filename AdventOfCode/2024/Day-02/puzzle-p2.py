@@ -12,7 +12,7 @@ def pairwise(iterable):
 
 def is_unsafe(numlist):
     dist_count = Counter([pair[1]-pair[0] for pair in pairwise(numlist)])
-    sign_count = Counter([(x > 0) - (x < 0) for x in dist_count.keys()])
+    sign_count = Counter([(x > 0) - (x < 0) for x in dist_count])
 
     unsafe = False
     if len(sign_count) != 1:

@@ -21,7 +21,7 @@ def main():
     unsafe = 0
     for line in input_data:
         dist_count = Counter([pair[1]-pair[0] for pair in pairwise(line)])
-        sign_count = Counter([(x > 0) - (x < 0) for x in dist_count.keys()])
+        sign_count = Counter([(x > 0) - (x < 0) for x in dist_count])
 
         if len(sign_count) != 1:
             unsafe += 1
