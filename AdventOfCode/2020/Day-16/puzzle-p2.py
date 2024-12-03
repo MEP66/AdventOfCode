@@ -34,17 +34,18 @@ def main():
         line = next(line_gen)
 
     nby_tickets = [[int(x) for x in line.split(',')] for line in line_gen]
+    valid_tickets = list()
     
     error_rate = 0
     for tkt in nby_tickets:
+        valid = True
         for param in tkt:
-            found = False
             for bnd in tkt_valid.values():
-                if bnd[0][0] <= param <= bnd[0][1] or bnd[1][0] <= param <= bnd[1][1]:
-                    found = True
+                if not (bnd[0][0] <= param <= bnd[0][1] or bnd[1][0] <= param <= bnd[1][1]):
+                    valid = False
                     break
-            if not found:
-                error_rate += param
+            if valid:
+                valid_tickets.append(tkt)
 
     print(f'Error rate: {error_rate}')
 
