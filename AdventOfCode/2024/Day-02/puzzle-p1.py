@@ -23,7 +23,7 @@ def main():
         dist_count = Counter([pair[1]-pair[0] for pair in pairwise(line)])
         sign_count = Counter([(x > 0) - (x < 0) for x in dist_count])
 
-        if len(sign_count) == 1 and all([c in [-3, -2, -1, 1, 2, 3] for c in dist_count]):
+        if len(sign_count) == 1 and all([abs(c) in [1, 2, 3] for c in dist_count]):
             total_safe += 1
     
     print(f'Number safe: {total_safe}')
