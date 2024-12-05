@@ -17,8 +17,8 @@ def main():
     before = defaultdict(set)
     after = defaultdict(set)
 
-    get_line = file_line_gen(filename) 
-    line = next(get_line)
+    line = next(get_line := file_line_gen(filename))
+    
     while line != '':
         params = [int(x) for x in line.split('|')]
         before[params[1]].add(params[0])
