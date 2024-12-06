@@ -23,7 +23,7 @@ def move_forward(c, r, d, m):
             raise Exception("Off the grid")
 
 
-def is_loop(p, d, m):
+def calc_map(p, d, m):
     c, r = p
     tiles_visited = set()
     tiles_visited.add((c, r, d))
@@ -31,10 +31,16 @@ def is_loop(p, d, m):
         try:
             c, r, d = move_forward(c, r, d, m)
             if (c, r, d) in tiles_visited:
-                return True
+                is_loop = True
+                break
             tiles_visited.add((c, r, d))
         except:
-            return False
+            is_loop = False
+            break
+    
+    path = set([(x[0], x[1]) for x in tiles_visited])
+    return (is_loop, path)
+
 
 def main():
     filename = fr'./AdventOfCode/2024/Day-{DAY}/input-example.txt'
@@ -56,20 +62,18 @@ def main():
             obstacle_map.append(obs_row)
 
     startdir = 'N'
+    _, orig_path = calc_map(startpos, startdir, obstacle_map)
 
-    nrows = len(obstacle_map)
-    ncols = len(obstacle_map[0])
     newobs_map = copy.deepcopy(obstacle_map)
     num_loops = 0
 
-    for ri in range(nrows):
-        print(ri)
-        for ci in range(ncols):
-            if (ci, ri) != startpos and not newobs_map[ri][ci]:
-                newobs_map[ri][ci] = True
-                if is_loop(startpos, startdir, newobs_map):
-                    num_loops += 1
-                newobs_map = copy.deepcopy(obstacle_map)
+    for obj_pos in orig_path:
+        if obj_pos != startpos:
+            newobs_map[obj_pos[1]][obj_pos[0]] = True
+            is_loop, _ = calc_map(startpos, startdir, newobs_map)
+            if is_loop:
+                num_loops += 1
+            newobs_map = copy.deepcopy(obstacle_map)
 
     print(f'Number of loops: {num_loops}')
     
