@@ -24,9 +24,11 @@ def move_forward(c, r, d, m):
 
 
 def calc_map(p, d, m):
+    ''' Given a start position, start direction, and object map,
+    return wether or not this is a loop, and the path thorugh the map.'''
+
     c, r = p
-    tiles_visited = set()
-    tiles_visited.add((c, r, d))
+    tiles_visited = {(c, r, d)}
     while True:
         try:
             c, r, d = move_forward(c, r, d, m)
@@ -37,7 +39,6 @@ def calc_map(p, d, m):
         except:
             is_loop = False
             break
-    
     path = set([(x[0], x[1]) for x in tiles_visited])
     return (is_loop, path)
 
