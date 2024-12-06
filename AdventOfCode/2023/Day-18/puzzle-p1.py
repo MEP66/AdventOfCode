@@ -1,24 +1,28 @@
-from collections import Counter
 from collections import namedtuple
+
+
+DAY = '18'
 
 
 def main():
 
+    filename = fr'./AdventOfCode/2023/Day-{DAY}/input-example.txt'
+    filename = fr'./AdventOfCode/2023/Day-{DAY}/input.txt'
+    
     inst = namedtuple('inst', 'dir dist color')
 
-    # Get input data.
-
-    #filename = r'./Day-18/input-example.txt'
-    filename = r'./Day-18/input.txt'
+    input_data = list()
 
     with open(filename, 'r', encoding='utf-8') as f:
-        input = [inst(r[0], int(r[1]), r[2]) for line in f for r in [line.strip().split(' ')]]
+        for line in f.read().splitlines():
+            params = line.split(' ')
+            input_data.append(inst(params[0], int(params[1]), params[2]))
 
     # Get chart orientation
     
     allsteps = list()
     rindex, cindex = 0, 0
-    for i, item in enumerate(input):
+    for i, item in enumerate(input_data):
         match item.dir:
             case 'U':
                 rindex -= item.dist
@@ -57,7 +61,7 @@ def main():
     digci = icmin
     digmap[digri][digci] = '#'
 
-    for item in input:
+    for item in input_data:
         match item.dir:
             case 'U':
                 for _ in range(item.dist):
@@ -78,9 +82,6 @@ def main():
 
     print(rmin, rmax, cmin, cmax)
     print(irmin, icmin)
-
-    pass
-
 
 if __name__ == '__main__':
     main()

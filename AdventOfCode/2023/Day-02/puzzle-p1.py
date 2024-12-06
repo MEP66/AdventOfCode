@@ -1,14 +1,17 @@
-
 import re
 
-def puzzle02():
-    filename = r'./Day-02/Input-02.txt'
+DAY = '02'
+
+
+def main():
+    filename = fr'./AdventOfCode/2023/Day-{DAY}/input-example.txt'
+    filename = fr'./AdventOfCode/2023/Day-{DAY}/input.txt'
+    
+    with open(filename, 'r', encoding='utf-8') as f:
+        input_data = f.read().splitlines()
 
     sum = 0
     limits = {'red' : 12, 'green' : 13, 'blue' : 14}
-
-    with open(filename, 'r', encoding='utf-8') as f:
-        input_data = f.read().splitlines()
 
     for line in input_data:
         possible = True
@@ -24,7 +27,9 @@ def puzzle02():
                     possible = False
         if possible:
             sum += gamenum
-        print(sum)
+    print(sum)
 
 if __name__ == '__main__':
-    puzzle02()
+    main()
+
+#Answer = 2331
