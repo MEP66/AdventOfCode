@@ -1,8 +1,8 @@
-
+from itertools import product
 
 DAY = '07'
 
-op_cnvr = {'0': '+', '1': '*'}
+all_ops = ('+', '*')
 
 def main():
     filename = fr'./AdventOfCode/2024/Day-{DAY}/input-example.txt'
@@ -22,8 +22,7 @@ def main():
         calvals = cal[1]
         numops = len(calvals) - 1
 
-        for mask in range(2**numops + 1):
-            ops = [op_cnvr[b] for b in list(bin(mask).replace('0b', '').zfill(numops))]
+        for ops in product(*[all_ops for _ in range(numops)]):
             equation = '('*numops + calvals[0]
             for x in zip(ops, calvals[1:], list(')' * numops)):
                 equation = equation + ''.join(x)
