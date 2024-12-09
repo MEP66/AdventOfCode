@@ -1,17 +1,47 @@
+from itertools import product
 
 
 DAY = '07'
 
-op_cnvr = {'0': '+', '1': '*', '2': '||'}
+all_ops = ('+', '*')
+super_ops = ('+', '*', '||')
 
-def ternary (n):
-    if n == 0:
-        return '0'
-    nums = []
-    while n:
-        n, r = divmod(n, 3)
-        nums.append(str(r))
-    return ''.join(reversed(nums))
+
+def is_valid_cal_2(cal):
+    tv = cal[0]
+    calvals = cal[1]
+    numops = len(calvals) - 1
+
+    valid = False
+    for ops in product(*[super_ops for _ in range(numops)]):
+        if '||' in ops:
+            left = calvals[0]
+            for x in zip(ops, calvals[1:]):
+                if x[0] == '||':
+                    left = left + x[1]
+                else:
+                    left = left + ''.join(x)
+                left = str(eval(left))
+            if int(left) == tv:
+                valid = True
+                break
+    return valid
+
+
+def is_valid_cal(cal):
+    tv = cal[0]
+    calvals = cal[1]
+    numops = len(calvals) - 1
+
+    valid = False
+    for ops in product(*[all_ops for _ in range(numops)]):
+        equation = '('*numops + calvals[0]
+        for x in zip(ops, calvals[1:], list(')' * numops)):
+            equation = equation + ''.join(x)
+        if eval(equation) == tv:
+            valid = True
+            break
+    return valid
 
 
 def main():
@@ -28,34 +58,15 @@ def main():
     total_calibration = 0
 
     for cal in calibrations:
-        tv = cal[0]
-        calvals = cal[1]
-        numops = len(calvals) - 1
-
-        for mask in range(3**numops):
-
-            ops = [op_cnvr[b] for b in list(ternary(mask).zfill(numops))]
-            temp_cv = [calvals[0]]
-            temp_ops = list()
-
-            for i, op in enumerate(ops):
-                if op == '||':
-                    temp_cv[-1] = temp_cv[-1] + calvals[i+1]
-                else:
-                    temp_cv.append(calvals[i+1])
-                    temp_ops.append(ops[i])
-
-            equation = '('*len(temp_ops) + temp_cv[0]
-            for x in zip(temp_ops, temp_cv[1:], list(')' * len(temp_ops))):
-                equation = equation + ''.join(x)
-            
-            if eval(equation) == tv:
-                total_calibration += tv
-                break
-
+        print(cal)
+        if is_valid_cal(cal):
+            total_calibration += cal[0]
+        elif is_valid_cal_2(cal):
+            total_calibration += cal[0]
 
     print(f'Total calibration = {total_calibration}')
 
-
 if __name__ == '__main__':
     main()
+
+#Answer = 91377448644679

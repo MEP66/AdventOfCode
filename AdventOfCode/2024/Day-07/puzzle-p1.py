@@ -6,7 +6,7 @@ all_ops = ('+', '*')
 
 def main():
     filename = fr'./AdventOfCode/2024/Day-{DAY}/input-example.txt'
-    filename = fr'./AdventOfCode/2024/Day-{DAY}/input.txt'
+    #filename = fr'./AdventOfCode/2024/Day-{DAY}/input.txt'
 
     calibrations = list()
 
