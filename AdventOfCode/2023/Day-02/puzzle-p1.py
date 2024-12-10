@@ -1,5 +1,6 @@
 import re
 
+
 DAY = '02'
 
 
@@ -22,8 +23,8 @@ def main():
         for group in grouppulls:
             indivpulls = group.strip().split(',')
             for pull in indivpulls:
-                data = pull.strip().split(' ')
-                if int(data[0]) > limits[data[1]]:
+                number, color = pull.strip().split(' ')
+                if int(number) > limits[color]:
                     possible = False
         if possible:
             sum += gamenum

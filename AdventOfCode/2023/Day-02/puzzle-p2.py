@@ -18,8 +18,8 @@ def main():
 
         for group in line.split(': ')[1].split(';'):
             for pull in group.strip().split(','):
-                data = pull.strip().split(' ')
-                maxballs[data[1]] = max(maxballs[data[1]], int(data[0]))
+                number, color = pull.strip().split(' ')
+                maxballs[color] = max(maxballs[color], int(number))
 
         sum += maxballs['red'] * maxballs['green'] * maxballs['blue']
     print(sum)
