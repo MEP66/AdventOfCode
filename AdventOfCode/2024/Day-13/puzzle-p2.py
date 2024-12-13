@@ -23,7 +23,6 @@ def main():
             line = next(get_line)
             c, f = [int(x)+10000000000000 for x in re.findall(r'\d+', line)]
             line = next(get_line)
-
         except StopIteration:
             break
 
@@ -31,6 +30,8 @@ def main():
         B = ((c * d) - (a * f)) / ((b * d) - (a * e))
         if A.is_integer() and B.is_integer():
             min_tokens += (3 * A) + B
+
+    # Process the last entry after the break. (Need to find a cleaner way to loop.)
 
     A = ((c * e) - (b * f)) / ((a * e) - (b * d))
     B = ((c * d) - (a * f)) / ((b * d) - (a * e))
