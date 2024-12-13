@@ -17,12 +17,13 @@ def main():
     while True:
         try:
             line = next(get_line)
-            line = next(get_line)
             a, d = [int(x) for x in re.findall(r'\d+', line)]
             line = next(get_line)
             b, e = [int(x) for x in re.findall(r'\d+', line)]
             line = next(get_line)
             c, f = [int(x)+10000000000000 for x in re.findall(r'\d+', line)]
+            line = next(get_line)
+
         except StopIteration:
             break
 
@@ -30,8 +31,6 @@ def main():
         B = ((c * d) - (a * f)) / ((b * d) - (a * e))
         if A.is_integer() and B.is_integer():
             min_tokens += (3 * A) + B
-    
-    #Get the last entry. Need to clean this up.
 
     A = ((c * e) - (b * f)) / ((a * e) - (b * d))
     B = ((c * d) - (a * f)) / ((b * d) - (a * e))
