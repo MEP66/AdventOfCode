@@ -17,26 +17,21 @@ def main():
     while True:
         try:
             line = next(get_line)
-            a, d = [int(x) for x in re.findall(r'\d+', line)]
+            x1, y1 = [int(x) for x in re.findall(r'\d+', line)]
             line = next(get_line)
-            b, e = [int(x) for x in re.findall(r'\d+', line)]
+            x2, y2 = [int(x) for x in re.findall(r'\d+', line)]
             line = next(get_line)
-            c, f = [int(x)+10000000000000 for x in re.findall(r'\d+', line)]
+            r1, r2 = [int(x)+10000000000000 for x in re.findall(r'\d+', line)]
+
+            A = ((r1 * y2) - (x2 * r2)) / ((x1 * y2) - (x2 * y1))
+            B = ((r1 * y1) - (x1 * r2)) / ((x2 * y1) - (x1 * y2))
+            
+            if A.is_integer() and B.is_integer():
+                min_tokens += (3 * A) + B
+
             line = next(get_line)
         except StopIteration:
             break
-
-        A = ((c * e) - (b * f)) / ((a * e) - (b * d))
-        B = ((c * d) - (a * f)) / ((b * d) - (a * e))
-        if A.is_integer() and B.is_integer():
-            min_tokens += (3 * A) + B
-
-    # Process the last entry after the break. (Need to find a cleaner way to loop.)
-
-    A = ((c * e) - (b * f)) / ((a * e) - (b * d))
-    B = ((c * d) - (a * f)) / ((b * d) - (a * e))
-    if A.is_integer() and B.is_integer():
-        min_tokens += (3 * A) + B
             
     print(f'Min Tokens = {int(min_tokens)}')
 
