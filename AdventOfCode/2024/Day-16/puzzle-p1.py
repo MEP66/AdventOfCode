@@ -65,10 +65,8 @@ def main():
         for ci, t in enumerate(row):
             if t == 'S':
                 startpos = (ci, ri, 'e')
-                #maze[ri][ci] = '.'
             if t == 'E':
                 endpos = (ci, ri)
-                #maze[ri][ci] = '.'
 
     maze_graph = Graph(maze)
 

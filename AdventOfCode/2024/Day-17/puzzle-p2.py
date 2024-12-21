@@ -20,9 +20,9 @@ def main():
                 #((3 * (2**(5*3))) +     # 4 (6 - 1)  (inp #) * (2**(len(input) - (index + 1)))
                 #(4 * (2**(4*3))) +     # 3 (6 - 2)
     #init_term = (4 * (2**(3*3)))      # 7,7766,7754,7747,7733,7722,7711,7700
-    #init_term = (5 * (2**(2*3)))      # 7,766,754,747,733,722,711,700
-    init_term = ((6 * (2**(1*3))) +     # 7,66,54,47,33,22,11,00
-                (3 * (2**(0*3))))      # 7,6,4,7,3,2,1,0
+    init_term = ((0 * (2**(2*3))) +    # 7,766,754,747,733,722,711,700
+                (1 * (2**(1*3))) +     # 7,66,54,47,33,22,11,00
+                (0 * (2**(0*3))))      # 7,6,4,7,3,2,1,0
 
 
     # Solution for the example problem.
@@ -103,6 +103,8 @@ def main():
                         error = True
                 if not error:
                     out.append(modnum % 8)
+                    print(f'{init_term}    ({registers['A']}    {registers['B']}    {registers['C']})  =>  {modnum % 8}')
+
                 inst_ptr += 2
             case 6: # adv: B = int(A / 2**operand) 
                 error = False
@@ -140,7 +142,7 @@ def main():
                 inst_ptr += 2
         if inst_ptr >= len(program):
             break
-    print(f'{init_term}    {registers['A']}    {registers['B']}    {registers['C']}    {",".join([str(x) for x in out])}')
+    #print(f'{init_term}    {registers['A']}    {registers['B']}    {registers['C']}    {",".join([str(x) for x in out])}')
     #print(f'Program halted.')
 
 if __name__ == '__main__':
