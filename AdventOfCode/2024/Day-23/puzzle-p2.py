@@ -22,9 +22,7 @@ def generate_meshes(nodes):
             if len(mesh) == len(c) and len(mesh) > len(max_mesh):
                 max_mesh = mesh
         max_mesh = list(max_mesh)
-        max_mesh.sort()
-
-        yield set(max_mesh)
+        yield max_mesh
 
 def main():
     filename = fr'./AdventOfCode/2024/Day-{DAY}/input-example.txt'
@@ -46,11 +44,10 @@ def main():
     
     meshes = list(generate_meshes(all_networks))
 
-    largest_mesh = set()
+    largest_mesh = list()
     for m in meshes:
         if len(m) > len(largest_mesh):
             largest_mesh = m
-    largest_mesh = list(largest_mesh)
     largest_mesh.sort()
     
     print(f'The largest mesh is: {largest_mesh}')
