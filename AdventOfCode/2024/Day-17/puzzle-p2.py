@@ -1,39 +1,17 @@
 
+# Solution for the example problem.
+#init_term  = 03
+#for i, n in enumerate(program):
+#    init_term += (n * (2**((i+1)*3)))
+
 
 DAY = '17'
 
-def main():
-    filename = fr'./AdventOfCode/2024/Day-{DAY}/input-example.txt'
-    filename = fr'./AdventOfCode/2024/Day-{DAY}/input.txt'
-    
-    with open(filename, 'r', encoding='utf-8') as f:
-        input_data = f.read().splitlines()
-
-    registers = {'A': None, 'B': None, 'C': None}
-    registers['A'] = int(input_data[0].split(': ')[1])
-    registers['B'] = int(input_data[1].split(': ')[1])
-    registers['C'] = int(input_data[2].split(': ')[1])
-
-    program = [int(x) for x in input_data[4].split(': ')[1].split(',')]
+def eval_stm(A_init, B_init, C_init, program):
+    inst_ptr = 0
+    registers = {'A': A_init, 'B': B_init, 'C': C_init}
     out = list()
 
-                #((3 * (2**(5*3))) +     # 4 (6 - 1)  (inp #) * (2**(len(input) - (index + 1)))
-                #(4 * (2**(4*3))) +     # 3 (6 - 2)
-    #init_term = (4 * (2**(3*3)))      # 7,7766,7754,7747,7733,7722,7711,7700
-    init_term = ((0 * (2**(2*3))) +    # 7,766,754,747,733,722,711,700
-                (1 * (2**(1*3))) +     # 7,66,54,47,33,22,11,00
-                (0 * (2**(0*3))))      # 7,6,4,7,3,2,1,0
-
-
-    # Solution for the example problem.
-    #init_term  = 0
-    #for i, n in enumerate(program):
-    #    init_term += (n * (2**((i+1)*3)))
-    
-    inst_ptr = 0
-    registers['A'] = init_term
-    registers['B'] = 0
-    registers['C'] = 0
 
     while True:
         opcode = program[inst_ptr]
@@ -103,7 +81,6 @@ def main():
                         error = True
                 if not error:
                     out.append(modnum % 8)
-                    print(f'{init_term}    ({registers['A']}    {registers['B']}    {registers['C']})  =>  {modnum % 8}')
 
                 inst_ptr += 2
             case 6: # adv: B = int(A / 2**operand) 
@@ -142,10 +119,43 @@ def main():
                 inst_ptr += 2
         if inst_ptr >= len(program):
             break
-    #print(f'{init_term}    {registers['A']}    {registers['B']}    {registers['C']}    {",".join([str(x) for x in out])}')
-    #print(f'Program halted.')
+    return out
+
+
+def main():
+    filename = fr'./AdventOfCode/2024/Day-{DAY}/input-example.txt'
+    filename = fr'./AdventOfCode/2024/Day-{DAY}/input.txt'
+    
+    with open(filename, 'r', encoding='utf-8') as f:
+        input_data = f.read().splitlines()
+
+    B = C = 0
+    program = [int(x) for x in input_data[4].split(': ')[1].split(',')]
+
+    # First figure out how many input octects product the proper length output.
+
+    place_count = 0
+    while True:
+        A = int('1' + ('0' * place_count), 8)
+        if len(eval_stm(A, B, C, program)) == len(program):
+            break
+        place_count += 1
+    
+    A_target = ''
+    for i in range(place_count, -1, -1):
+        d = 0
+        while True:
+            A = int(A_target + str(d) + ('0' * i), 8)
+            if A != 0:
+                if eval_stm(A, B, C, program)[i] == program[i]:
+                    A_target += str(d)
+                    break
+            d += 1
+    
+    print(f'A initializtion value = {int(A_target, 8)}, octal={A_target}')
+
 
 if __name__ == '__main__':
     main()
 
-#Answer = 
+#Answer = 266932601404433 (base 8: 7454302670536021)
