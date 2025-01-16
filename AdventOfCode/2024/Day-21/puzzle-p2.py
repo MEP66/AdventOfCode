@@ -19,7 +19,7 @@ class Keypad():
         self.kp = kp
         self.memory = dict()
     
-    def all_shortest_paths(self, start, end, lvl=0):
+    def all_shortest_paths(self, start, end):
         queue = deque([(start, [start])])
         visited = set()
         all_paths = []
@@ -57,8 +57,6 @@ def shortest_path_length(all_codes, dkp, ckp, lvl=0):
                 cur_shortest_pathset = kp.all_shortest_paths(sk, ek)
                 if lvl == NUMCTLKP:
                     seg_length = len(cur_shortest_pathset[0])
-                    #kp.memory[(lvl, (sk, ek))] = len_path
-                    #return len_path
                 else:
                     seg_length = shortest_path_length(cur_shortest_pathset, dkp, ckp, lvl+1)
                     kp.memory[lvl, (sk, ek)] = seg_length
@@ -83,7 +81,6 @@ def main():
         path = shortest_path_length([code], doorkp, controlkp)
         result += multiplier * path
     print(f'Final result = {result}')
-    pass
 
 if __name__ == '__main__':
     main()

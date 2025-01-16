@@ -33,7 +33,6 @@ def main():
         front_two = (knots[front_of_list], knots[front_of_list + 1])
 
     print(f'Result: {front_two[0] * front_two[1]}')
-    pass
 
 if __name__ == '__main__':
     main()
